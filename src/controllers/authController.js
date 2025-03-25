@@ -3,7 +3,14 @@ import argon2 from "argon2";
 import ApiResponse from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not set in environment variables!");
+}
+
+export async function getUserByEmail(email) {
+  return await prisma.user.findUnique({ where: { email } });
+}
 
 /**
  *
@@ -15,9 +22,10 @@ export async function registerUser(req, res) {
   if (!email || !password)
     return ApiResponse.error(res, 401, "User email or password is required");
   try {
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    const existingUser = await getUserByEmail(email);
+
     if (existingUser)
-      return ApiResponse.error(res, 403, `User ${email} already existing`);
+      return ApiResponse.error(res, 409, `User ${email} already existing`);
     const hashedPassword = await argon2.hash(password);
     const newUser = await prisma.user.create({
       data: {
@@ -44,17 +52,18 @@ export async function registerUser(req, res) {
  * @param {import("express").Response} res
  */
 export async function loginUser(req, res) {
+  if (req.signedCookies.jwt)
+    return ApiResponse.send(res, 200, "Already Logged In");
+
   const { email, password } = req.body;
   if (!email || !password)
     return ApiResponse.error(res, 401, "User email or password is required");
   try {
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    if (!existingUser)
-      return ApiResponse.error(res, 403, `User ${email} doesn't exist`);
+    const existingUser = await getUserByEmail(email);
+    if (!existingUser) {
+      return ApiResponse.error(res, 404, `User ${email} not found`);
+    }
+
     const isMatching = await argon2.verify(existingUser.password, password);
     if (!isMatching) return ApiResponse.error(res, 401, "Unauthorized Access");
 
@@ -86,9 +95,16 @@ export async function loginUser(req, res) {
  * @param {import("express").Response} res
  */
 export async function logoutUser(req, res) {
-  if (!req.signedCookies.jwt || !jwt.verify(req.signedCookies.jwt, JWT_SECRET))
-    return ApiResponse.error(res, 403, "jwt token is not found");
+  try {
+    if (!req.signedCookies.jwt) {
+      return ApiResponse.error(res, 403, "JWT token is not found");
+    }
 
-  res.clearCookie("jwt");
-  ApiResponse.send(res, 200, `Logout Successfull`);
+    // Verify the JWT token
+    jwt.verify(req.signedCookies.jwt, JWT_SECRET); // This can throw an error if token is invalid or expired
+    res.clearCookie("jwt"); // Clear the cookie after verification
+    ApiResponse.send(res, 200, `Logout Successful`);
+  } catch (error) {
+    ApiResponse.error(res, 401, "Invalid or expired JWT token");
+  }
 }
