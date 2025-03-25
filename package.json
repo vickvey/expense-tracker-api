@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [
     "rest",
@@ -19,6 +18,7 @@
   "dependencies": {
     "@prisma/client": "^6.5.0",
     "argon2": "^0.41.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -26,5 +26,8 @@
   },
   "prisma": {
     "seed": "node ./prisma/seed.js"
+  },
+  "devDependencies": {
+    "mocha": "^11.1.0"
   }
 }
