@@ -1,10 +1,13 @@
 import express from "express";
-import { getExpenses } from "../controllers/expenseController.js";
+import {
+  createExpense,
+  getExpenses,
+} from "../controllers/expenseController.js";
 
 const router = express.Router();
 router.get("/", getExpenses);
 // router.get("/:id");
-// router.post("/");
+router.post("/", createExpense);
 // router.put("/:id");
 // router.patch("/:id");
 // router.delete("/");
