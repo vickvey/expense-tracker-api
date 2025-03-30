@@ -1,15 +1,31 @@
-import express from "express";
+import express from 'express';
 import {
   createExpense,
   getExpenses,
-} from "../controllers/expenseController.js";
+  getExpenseById,
+  updateExpense,
+  patchExpense,
+  deleteExpense,
+} from '../controllers/expenseController.js';
 
 const router = express.Router();
-router.get("/", getExpenses);
-// router.get("/:id");
-router.post("/", createExpense);
-// router.put("/:id");
-// router.patch("/:id");
-// router.delete("/");
+
+// Get all expenses for the authenticated user
+router.get('/', getExpenses);
+
+// Get a specific expense by ID
+router.get('/:id', getExpenseById);
+
+// Create a new expense
+router.post('/', createExpense);
+
+// Update an expense completely (PUT)
+router.put('/:id', updateExpense);
+
+// Update an expense partially (PATCH)
+router.patch('/:id', patchExpense);
+
+// Delete an expense
+router.delete('/:id', deleteExpense);
 
 export default router;
