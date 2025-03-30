@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "NODE_ENV=local nodemon ./src/index.js",
+    "start": "NODE_ENV=production node ./src/index.js"
   },
   "keywords": [
     "rest",
@@ -28,7 +29,6 @@
     "seed": "node ./prisma/seed.js"
   },
   "devDependencies": {
-    "mocha": "^11.1.0",
     "nodemon": "^3.1.9"
   }
 }

@@ -1,5 +1,3 @@
-import { configDotenv } from "dotenv";
-configDotenv();
 import express from "express";
 import cors from "cors";
 import ApiResponse from "./utils/ApiResponse.js";

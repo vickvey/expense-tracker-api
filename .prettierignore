@@ -1,0 +1,8 @@
+node_modules
+public
+prisma
+
+.env
+.env.*
+*.env
+*.env.*
