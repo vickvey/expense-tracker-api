@@ -10,9 +10,15 @@
     "db:reset": "rm -rf drizzle && pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate",
     "db:seed": "tsx ./src/db/seed.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "express",
+    "rest-api",
+    "typescript",
+    "drizzle",
+    "zod"
+  ],
+  "author": "Vivek Kumar",
+  "license": "Apache-2.0",
   "packageManager": "pnpm@10.18.0",
   "dependencies": {
     "@libsql/client": "^0.15.15",
