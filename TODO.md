@@ -1,3 +1,3 @@
 - [x] Database Modelling, Seeding complete.
-- [ ] Move forward to Services.
-- Move forward to Validations.
+- [x] Refractored the whole codebase and made it modular.
+- [x] Written Auth Service and Validations.

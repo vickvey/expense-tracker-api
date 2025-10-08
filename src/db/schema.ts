@@ -5,7 +5,10 @@ export const usersTable = t.sqliteTable("users", {
   id: t.int().primaryKey({ autoIncrement: true }),
   email: t.text().notNull().unique(),
   passwordHash: t.text("password_hash").notNull(),
-  role: t.text({ enum: ["standard", "admin"] }).default("standard"),
+  role: t
+    .text({ enum: ["standard", "admin"] })
+    .default("standard")
+    .notNull(),
 });
 
 export const CATEGORY_ENUM_VALUES = [

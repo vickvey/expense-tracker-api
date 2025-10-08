@@ -19,7 +19,7 @@
   ],
   "author": "Vivek Kumar",
   "license": "Apache-2.0",
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@10.18.1",
   "dependencies": {
     "@libsql/client": "^0.15.15",
     "argon2": "^0.44.0",
@@ -27,10 +27,12 @@
     "drizzle-orm": "^0.44.6",
     "drizzle-seed": "^0.3.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.7.0",
     "drizzle-kit": "^0.31.5",
     "tsx": "^4.20.6",
