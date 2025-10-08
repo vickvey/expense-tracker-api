@@ -1,0 +1,3 @@
+- [x] Database Modelling, Seeding complete.
+- [ ] Move forward to Services.
+- Move forward to Validations.

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2020", // Modern enough for async/await and other features
+    "module": "commonjs", // Outputs CommonJS modules (require/module.exports)
+    "moduleResolution": "node", // How modules are resolved in Node.js
+    "esModuleInterop": true, // Allows default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true, // Allows importing JSON files
+    "strict": true, // Enables all strict type-checking options
+    "skipLibCheck": true, // Speeds up build by skipping type checks on node_modules
+    "outDir": "./dist", // Output directory for compiled files
+    "rootDir": "./src", // Root of your source files
+    "baseUrl": ".", // Needed for path aliases
+    "ignoreDeprecations": "6.0", // Yes, I know node10 (aka node) is deprecated in TypeScript 6.0, and I'm okay with that.
+    "paths": {
+      "@/*": ["src/*"] // Example alias: import from "@/utils" → src/utils
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

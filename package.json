@@ -1,0 +1,33 @@
+{
+  "name": "expense-tracker-api",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch ./src/server.ts",
+    "db:reset": "rm -rf drizzle && pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate",
+    "db:seed": "tsx ./src/db/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.18.0",
+  "dependencies": {
+    "@libsql/client": "^0.15.15",
+    "argon2": "^0.44.0",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.6",
+    "drizzle-seed": "^0.3.1",
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0",
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
