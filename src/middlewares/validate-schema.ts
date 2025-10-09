@@ -1,24 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import * as z from "zod";
+import { Request, Response, NextFunction } from "express";
+import { ZodObject } from "zod";
 
-export default function validateSchema(schema: z.ZodObject) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+export default function validateSchema(schema: ZodObject<any>) {
+  return (req: Request, _res: Response, next: NextFunction) => {
     try {
-      schema.parse(req.body); // Validate the request body
-      next(); // Proceed if validation succeeds
+      schema.parse(req.body);
+      next(); // Only after schema validation is success
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        // Use z.treeifyError to format the error
-        const formattedErrors = z.treeifyError(error);
-
-        return res.status(400).json({
-          message: "Validation failed",
-          errors: formattedErrors, // Send the formatted errors
-        });
-      }
-
-      // If it's not a ZodError, let Express handle it
-      next(error);
+      next(error); // global error handler will handle this
     }
   };
 }

@@ -1,6 +1,7 @@
 import express from "express";
+import { globalErrorHandler } from "./middlewares/global-error-handler";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 1991;
 const app = express();
 
 app.use(express.json());
@@ -11,6 +12,8 @@ app.get("/", (_req, res) => {
     message: "Hello World, from Expense Tracker API",
   });
 });
+
+app.use(globalErrorHandler); // handle all global errors here
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} ...`);

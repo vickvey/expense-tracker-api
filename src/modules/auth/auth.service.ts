@@ -36,3 +36,5 @@ const loginUser = async (dto: AuthLoginDTO) => {
 };
 
 const logoutUser = async () => {};
+
+export { registerUser, loginUser };
