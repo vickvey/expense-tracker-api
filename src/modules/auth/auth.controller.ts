@@ -2,7 +2,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import * as AuthService from "./auth.service";
-import { AuthRegistrationDTO } from "./auth.types";
+import { AuthLoginDTO, AuthRegistrationDTO } from "./auth.types";
 import { StatusCodes } from "http-status-codes";
 
 const register = async (req: Request, res: Response, _next: NextFunction) => {
@@ -13,9 +13,23 @@ const register = async (req: Request, res: Response, _next: NextFunction) => {
   });
 };
 
-/// TODO
+
 const login = async (req: Request, res: Response) => {
-  res.status(StatusCodes.OK);
+  const data: AuthLoginDTO = req.body;
+  const token = await AuthService.loginUser(data);
+
+  // sign the cookie and set it
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'Strict',
+    maxAge: 60 * 60 * 1000,
+    signed: true // sign cookie with COOKIE_SECRET 
+  });
+
+  return res.status(StatusCodes.OK).json({
+    message: "User Login Granted"
+  })
 };
 
 /// TODO
