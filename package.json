@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch ./src/server.ts",
     "db:reset": "rm -rf drizzle && pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate",
-    "db:seed": "tsx ./src/db/seed.ts"
+    "db:seed": "tsx ./src/db/seed.ts",
+    "start:": "node ./dist/server.js",
+    "build": "tsc"
   },
   "keywords": [
     "express",
@@ -23,6 +25,7 @@
   "dependencies": {
     "@libsql/client": "^0.15.15",
     "argon2": "^0.44.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.6",
     "drizzle-seed": "^0.3.1",
@@ -32,6 +35,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.7.0",

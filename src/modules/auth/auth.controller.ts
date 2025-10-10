@@ -13,23 +13,22 @@ const register = async (req: Request, res: Response, _next: NextFunction) => {
   });
 };
 
-
 const login = async (req: Request, res: Response) => {
   const data: AuthLoginDTO = req.body;
   const token = await AuthService.loginUser(data);
 
   // sign the cookie and set it
-  res.cookie('token', token, {
+  res.cookie("token", token, {
     httpOnly: true,
     secure: true,
-    sameSite: 'Strict',
+    sameSite: "strict",
     maxAge: 60 * 60 * 1000,
-    signed: true // sign cookie with COOKIE_SECRET 
+    signed: true, // sign cookie with COOKIE_SECRET
   });
 
   return res.status(StatusCodes.OK).json({
-    message: "User Login Granted"
-  })
+    message: "User Login Granted",
+  });
 };
 
 /// TODO

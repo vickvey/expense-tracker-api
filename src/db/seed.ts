@@ -1,8 +1,10 @@
-import { reset, seed } from "drizzle-seed";
-import { db } from "./client";
+import "dotenv/config";
+import { seed, reset } from "drizzle-seed";
 import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/libsql";
 
 async function seedData() {
+  const db = drizzle(process.env.DB_FILE_NAME!);
   console.log(`=> Started Database Seeding ...`);
   await reset(db, schema);
   console.log(`=> Database Reset Completed!!`);
@@ -17,7 +19,7 @@ async function seedData() {
           ],
         }),
       },
-      count: 100,
+      count: 50,
     },
     expensesTable: {
       columns: {
@@ -27,7 +29,7 @@ async function seedData() {
         }),
         date: f.datetime(),
       },
-      count: 200000,
+      count: 2000,
     },
   }));
   console.log(`=> Database Seeding Completed :)`);
