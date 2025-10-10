@@ -3,6 +3,7 @@ import express from "express";
 import { globalErrorHandler } from "./middlewares/global-error-handler";
 import cookieParser from "cookie-parser";
 import { connectDb } from "./db/connectDb";
+import apiRoutes from "./routes/index";
 
 const PORT = process.env.PORT || 1991;
 const COOKIE_SECRET = process.env.COOKIE_SECRET || "your-cookie-secret-here";
@@ -17,6 +18,8 @@ app.get("/", (_req, res) => {
     message: "Hello World, from Expense Tracker API",
   });
 });
+
+app.use("/api", apiRoutes);
 
 app.use(globalErrorHandler); // handle all global errors here
 
@@ -36,8 +39,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-// (only use for dev purposes)
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT} ...`);
-// });

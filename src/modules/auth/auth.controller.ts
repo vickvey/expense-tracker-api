@@ -31,9 +31,12 @@ const login = async (req: Request, res: Response) => {
   });
 };
 
-/// TODO
+/// TODO: Add Blacklisting of tokens (for more security)
 const logout = async (req: Request, res: Response) => {
-  res.status(StatusCodes.OK);
+  res.clearCookie("token");
+  res.status(StatusCodes.OK).json({
+    message: "User Logout Successfully",
+  });
 };
 
 export { register, login, logout };
