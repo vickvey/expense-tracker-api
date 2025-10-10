@@ -1,11 +1,12 @@
+import "dotenv/config";
 import express from "express";
 import { globalErrorHandler } from "./middlewares/global-error-handler";
 import cookieParser from "cookie-parser";
+import { connectDb } from "./db/connectDb";
 
 const PORT = process.env.PORT || 1991;
-const COOKIE_SECRET = process.env.COOKIE_SECRET || 'your-cookie-secret-here';
+const COOKIE_SECRET = process.env.COOKIE_SECRET || "your-cookie-secret-here";
 const app = express();
-
 
 app.use(cookieParser(COOKIE_SECRET));
 app.use(express.json());
@@ -19,7 +20,24 @@ app.get("/", (_req, res) => {
 
 app.use(globalErrorHandler); // handle all global errors here
 
-/// TODO: Add database connection and encapsulate the below code in then()
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} ...`);
-});
+const startServer = async () => {
+  try {
+    await connectDb(); // Check DB connection before starting server
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT} ...`);
+    });
+  } catch (error) {
+    console.error(
+      "Failed to start server due to database connection issue: ",
+      error
+    );
+    process.exit(1); // Exit the process if DB connection fails
+  }
+};
+
+startServer();
+
+// (only use for dev purposes)
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT} ...`);
+// });

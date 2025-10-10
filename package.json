@@ -9,7 +9,7 @@
     "dev": "tsx watch ./src/server.ts",
     "db:reset": "rm -rf drizzle && pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate",
     "db:seed": "tsx ./src/db/seed.ts",
-    "start:": "node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "build": "tsc"
   },
   "keywords": [
