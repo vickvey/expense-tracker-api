@@ -28,7 +28,10 @@ export const expensesTable = t.sqliteTable(
     amount: t.real().notNull(),
     category: t.text({ enum: CATEGORY_ENUM_VALUES }).notNull(),
     description: t.text(),
-    date: t.text().default(sql`(CURRENT_TIMESTAMP)`),
+    date: t
+      .text()
+      .default(sql`(CURRENT_TIMESTAMP)`)
+      .notNull(),
     userId: t
       .int("user_id")
       .references(() => usersTable.id, { onDelete: "cascade" })

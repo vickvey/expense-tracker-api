@@ -3,7 +3,7 @@ CREATE TABLE `expenses` (
 	`amount` real NOT NULL,
 	`category` text NOT NULL,
 	`description` text,
-	`date` text DEFAULT (CURRENT_TIMESTAMP),
+	`date` text DEFAULT (CURRENT_TIMESTAMP) NOT NULL,
 	`user_id` integer NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
 );

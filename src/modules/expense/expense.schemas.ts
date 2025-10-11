@@ -24,9 +24,9 @@ const dateValidation = z
 export const expenseCreateSchema = z.object({
   amount: amountValidation,
   category: categoryValidation,
-  description: descriptionValidation.optional(),
   date: dateValidation,
   userId: z.int(),
+  description: descriptionValidation.optional(),
 });
 
 export const expenseUpdateSchema = z.object({

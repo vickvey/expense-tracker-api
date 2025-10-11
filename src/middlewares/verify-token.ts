@@ -14,7 +14,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   // Verify the JWT using the utility function
   const decoded = verifyJwt(token); // Calls the verifyJwt function from utils/jwt.ts
 
-  if (!decoded) {
+  if (!decoded || !decoded.userId) {
     return res
       .status(StatusCodes.FORBIDDEN)
       .json({ message: "Invalid or expired token" });
